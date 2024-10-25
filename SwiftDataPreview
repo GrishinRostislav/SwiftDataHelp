@@ -1,0 +1,22 @@
+import SwiftUI
+import SwiftData
+
+struct SubView: View {
+    @Bindable var modelInstance: SwiftDataModel
+    var body: some View {
+        Text("Hello, World!")
+    }
+}
+
+#Preview {
+    do {
+        let config = ModelConfiguration(isStoredInMemoryOnly: true)
+        let container = try ModelContainer(for: SwiftDataModel.self, configurations: config)
+        let example = SwiftDataModel(name: "SomeProperty", details: "SomeProperty", date: .now, priority: 2)
+        return SubView(modelInstance: example)
+            .modelContainer(container)
+        
+    } catch {
+        fatalError("failed to create model container")
+    }
+}
